@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#040711">
+    <title>The Celestial Dispatch — A Birthday Across the Stars</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="nebula" aria-hidden="true"></div>
+    <canvas id="sky" aria-hidden="true"></canvas>
+    <div class="pulse" id="pulse" aria-hidden="true"></div>
+
+    <div class="snd" id="snd">
+        <input type="range" id="vol" min="0" max="1" step="0.05" value="0.6" aria-label="Sound volume">
+        <button type="button" class="snd-btn" id="soundBtn" aria-pressed="false" aria-label="Toggle sound">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 9v6h4l5 4V5L8 9H4z" />
+                <g class="waves">
+                    <path d="M16.5 8.5a5 5 0 010 7" />
+                    <path d="M19 6a8.5 8.5 0 010 12" />
+                </g>
+            </svg>
+            <span id="soundTxt">Sound off</span>
+        </button>
+    </div>
+
+    <div id="app">
+        <header class="hdr">
+            <div class="brand">The Celestial <b>Dispatch</b></div>
+            <nav class="stepper" aria-label="Chapters">
+                <ol>
+                    <li class="step" data-step="1"><button type="button" data-goto="1"
+                            aria-label="Chapter 1: The transmission"><span class="num">01</span><span
+                                class="lbl">Transmission</span></button></li>
+                    <li class="conn" aria-hidden="true"><i></i></li>
+                    <li class="step" data-step="2"><button type="button" data-goto="2"
+                            aria-label="Chapter 2: Messages from the crew"><span class="num">02</span><span
+                                class="lbl">The Crew</span></button></li>
+                    <li class="conn" aria-hidden="true"><i></i></li>
+                    <li class="step" data-step="3"><button type="button" data-goto="3"
+                            aria-label="Chapter 3: The final note"><span class="num">03</span><span class="lbl">Final
+                                Note</span></button></li>
+                </ol>
+            </nav>
+            <div></div>
+        </header>
+
+        <main id="main">
+            <!-- ===================== PAGE 01 ===================== -->
+            <section class="page is-active intro-run" id="page1" data-page="1" aria-labelledby="p1title">
+                <div class="probe" aria-hidden="true">
+                    <svg viewBox="0 0 64 30" width="64" height="30">
+                        <rect x="22" y="10" width="20" height="10" rx="2" fill="#16244a" stroke="#e9bf78"
+                            stroke-width="1" />
+                        <rect x="4" y="11" width="16" height="8" fill="#10224a" stroke="#80d9e8" stroke-width=".7" />
+                        <path d="M12 11v8M8 11v8M16 11v8" stroke="#80d9e8" stroke-width=".4" />
+                        <rect x="44" y="11" width="16" height="8" fill="#10224a" stroke="#80d9e8" stroke-width=".7" />
+                        <path d="M52 11v8M48 11v8M56 11v8" stroke="#80d9e8" stroke-width=".4" />
+                        <path d="M32 10V4M27 4q5 -4 10 0" fill="none" stroke="#e9bf78" stroke-width="1" />
+                        <circle class="blink" cx="32" cy="15" r="1.6" fill="#e9bf78" />
+                    </svg>
+                </div>
+                <div class="p1-stage" id="p1stage">
+                    <button type="button" class="beacon" id="beacon"
+                        aria-label="Signal beacon. Activate to receive the transmission">
+                        <svg viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+                            <defs>
+                                <radialGradient id="gCore">
+                                    <stop offset="0" stop-color="#fff8e6" />
+                                    <stop offset=".35" stop-color="#f6d28f" />
+                                    <stop offset=".75" stop-color="#c99552" stop-opacity=".55" />
+                                    <stop offset="1" stop-color="#c99552" stop-opacity="0" />
+                                </radialGradient>
+                                <radialGradient id="gHalo">
+                                    <stop offset="0" stop-color="#e9bf78" stop-opacity=".3" />
+                                    <stop offset=".55" stop-color="#e9bf78" stop-opacity=".07" />
+                                    <stop offset="1" stop-color="#e9bf78" stop-opacity="0" />
+                                </radialGradient>
+                                <linearGradient id="gRayV" gradientUnits="userSpaceOnUse" x1="0" y1="110" x2="0"
+                                    y2="290">
+                                    <stop offset="0" stop-color="#f5e2b4" stop-opacity="0" />
+                                    <stop offset=".5" stop-color="#f5e2b4" stop-opacity=".8" />
+                                    <stop offset="1" stop-color="#f5e2b4" stop-opacity="0" />
+                                </linearGradient>
+                                <linearGradient id="gRayH" gradientUnits="userSpaceOnUse" x1="110" y1="0" x2="290"
+                                    y2="0">
+                                    <stop offset="0" stop-color="#f5e2b4" stop-opacity="0" />
+                                    <stop offset=".5" stop-color="#f5e2b4" stop-opacity=".8" />
+                                    <stop offset="1" stop-color="#f5e2b4" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="b-halo" cx="200" cy="200" r="195" fill="url(#gHalo)" />
+                            <circle class="b-wave w1" cx="200" cy="200" r="44" />
+                            <circle class="b-wave w2" cx="200" cy="200" r="44" />
+                            <circle class="b-wave w3" cx="200" cy="200" r="44" />
+                            <path class="b-ring r1" pathLength="1" d="M100 200a100 100 0 1 0 200 0a100 100 0 1 0 -200 0"
+                                fill="none" stroke="rgba(233,191,120,.45)" stroke-width="1" />
+                            <path class="b-ring r3" pathLength="1" d="M15 200a185 185 0 1 0 370 0a185 185 0 1 0 -370 0"
+                                fill="none" stroke="rgba(160,174,198,.22)" stroke-width="1" />
+                            <g transform="translate(200 200) rotate(-24) scale(1 .4) translate(-200 -200)">
+                                <path class="b-ring r2" pathLength="1"
+                                    d="M50 200a150 150 0 1 0 300 0a150 150 0 1 0 -300 0" fill="none"
+                                    stroke="rgba(128,217,232,.4)" stroke-width="1" vector-effect="non-scaling-stroke" />
+                                <g class="orbit o2" style="--dur:30s;animation-direction:reverse">
+                                    <circle class="sat" cx="350" cy="200" r="7" fill="currentColor"
+                                        style="color:#a99be8" />
+                                </g>
+                            </g>
+                            <g class="orbit o1" style="--dur:22s">
+                                <circle class="sat" cx="300" cy="200" r="5" fill="currentColor" style="color:#80d9e8" />
+                                <circle class="sat" cx="100" cy="200" r="3.5" fill="currentColor"
+                                    style="color:#f5f0e5" />
+                            </g>
+                            <g class="orbit o3" style="--dur:60s">
+                                <circle class="sat" cx="200" cy="15" r="4" fill="currentColor" style="color:#e9bf78" />
+                            </g>
+                            <g class="b-rays" fill="none" stroke-width="1">
+                                <path d="M200 110V290" stroke="url(#gRayV)" />
+                                <path d="M110 200H290" stroke="url(#gRayH)" />
+                                <g transform="rotate(45 200 200)">
+                                    <path d="M200 140V260" stroke="url(#gRayV)" opacity=".6" />
+                                    <path d="M140 200H260" stroke="url(#gRayH)" opacity=".6" />
+                                </g>
+                            </g>
+                            <circle class="b-core" cx="200" cy="200" r="36" fill="url(#gCore)" />
+                            <circle class="b-signal" cx="200" cy="200" r="2" />
+                        </svg>
+                    </button>
+                    <p class="beacon-hint" id="beaconHint" aria-hidden="true"></p>
+
+                    <div class="intro-block" id="introBlock">
+                        <div class="telemetry i-fade" id="telemetry" style="--d:2.2s" aria-label="Transmission details">
+                        </div>
+                        <h1 class="mega" id="p1title" tabindex="-1"><span id="t1" style="--d:3.6s"></span><span id="t2"
+                                class="gold" style="--d:3.85s"></span></h1>
+                        <p class="lede i-fade" style="--d:4.2s">Some occasions deserve more than an ordinary message.
+                        </p>
+                        <div class="cta-row i-fade" style="--d:4.4s">
+                            <button type="button" class="btn primary" id="receiveBtn" disabled>Receive
+                                transmission</button>
+                            <button type="button" class="linkbtn" id="skipIntro">Skip intro</button>
+                        </div>
+                    </div>
+
+                    <div class="greet-block" id="greetBlock" hidden>
+                        <p class="eyebrow g-item" style="--d:.1s">Transmission received · Signal locked</p>
+                        <h2 class="greet-title g-item" id="greetTitle" style="--d:.3s"></h2>
+                        <div class="greet-body" id="greetBody"></div>
+                        <div class="signoff g-item" id="signoff1">
+                            <div class="dotline"><i></i><b></b></div>
+                            <p class="eyebrow gold">With warm wishes</p>
+                            <p class="sign" id="teamSign1"></p>
+                        </div>
+                        <div class="next-block g-item" id="nextBlock">
+                            <p class="more">But this transmission has more to reveal.</p>
+                            <p class="sub">Several personal messages are waiting in the archive.</p>
+                            <button type="button" class="btn primary" id="toCrew">Explore messages from the crew
+                                →</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== PAGE 02 ===================== -->
+            <section class="page" id="page2" data-page="2" aria-labelledby="p2title">
+                <header class="p2-head">
+                    <p class="eyebrow gold a-up" style="--d:.1s" id="archiveEyebrow">Archive</p>
+                    <h2 id="p2title" class="a-up" style="--d:.25s" tabindex="-1">Messages from the Crew</h2>
+                    <p class="lead a-up" style="--d:.45s">Different voices. Different wishes. One special person.</p>
+                    <p class="small a-up" style="--d:.6s">Each transmission was prepared personally. Open them one by
+                        one.</p>
+                </header>
+                <div class="archive" id="archive" role="group" aria-label="Sealed transmissions"></div>
+                <p class="archive-progress" id="archiveProgress" aria-live="polite"></p>
+                <div class="page-actions">
+                    <button type="button" class="btn ghost" id="backTo1">← The transmission</button>
+                    <button type="button" class="btn primary" id="toFinal">Continue to the final transmission →</button>
+                </div>
+            </section>
+            <section>
+                <div></div>
+            </section>
+
+            <!-- ===================== PAGE 03 ===================== -->
+            <section class="page" id="page3" data-page="3" aria-labelledby="p3title">
+                <header class="p3-head">
+                    <p class="eyebrow a-up" style="--d:.1s">Chapter 03 · Final note</p>
+                    <h2 id="p3title" class="a-up" style="--d:.25s" tabindex="-1">One Last Transmission</h2>
+                    <p class="lead a-up" style="--d:.5s">Some wishes are better said together.</p>
+                </header>
+                <article class="note" id="note"></article>
+                <div class="finale" id="finale">
+                    <svg id="constellation" viewBox="0 0 600 360" role="img"
+                        aria-label="An original constellation, with one star for each member of the team and a bright central star."></svg>
+                    <div class="finale-text" id="finaleText" aria-live="polite">
+                        <h2 id="finalHeading"></h2>
+                        <p class="line" id="finalLine"></p>
+                        <p class="sig" id="finalSig"></p>
+                    </div>
+                    <div class="finale-actions">
+                        <button type="button" class="btn primary" id="revisit">Revisit the journey</button>
+                        <button type="button" class="btn" id="again">Explore the messages again</button>
+                    </div>
+                    <button type="button" class="linkbtn replay" id="replayConst">↻ Replay the constellation</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Letter viewer (part of Page 02 interaction, not a separate chapter) -->
+    <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="readerTitle" tabindex="-1" hidden>
+        <div class="viewer-backdrop"></div>
+        <div class="v-stage" id="vStage"></div>
+        <div class="reader" id="reader" hidden>
+            <div class="reader-head">
+                <div>
+                    <p class="eyebrow gold">Personal transmission</p>
+                    <h2 id="readerTitle">From <span id="readerName"></span></h2>
+                </div>
+                <button type="button" class="x-btn" id="readerX" aria-label="Close letter">×</button>
+            </div>
+            <div class="reader-frame" id="readerFrame">
+                <img class="reader-img" id="readerImg" alt="" hidden decoding="async">
+                <div class="r-loading" id="readerLoading" hidden>
+                    <div class="spinner"></div>
+                    <p>Receiving transmission…</p>
+                </div>
+                <div class="r-missing" id="readerMissing" hidden>
+                    <div class="miss-box">
+                        <p class="eyebrow">Image not found</p>
+                        <p>This letter image hasn't been added yet. Expected file:</p>
+                        <code id="missingName"></code>
+                        <p>Place the original image at that path (or update <b>BIRTHDAY_CONTENT</b> in index.html).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="reader-foot">
+                <div class="pager" id="pager">
+                    <button type="button" class="btn ghost" id="prevImg">← Previous</button>
+                    <span class="count" id="imgCount" aria-live="polite">01 / 03</span>
+                    <button type="button" class="btn ghost" id="nextImg">Next →</button>
+                </div>
+                <button type="button" class="btn" id="closeLetter">Close letter</button>
+            </div>
+        </div>
+    </div>
+
+    <noscript>
+        <p style="position:relative;z-index:50;padding:90px 24px;text-align:center">This birthday experience needs
+            JavaScript to run.</p>
+    </noscript>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
